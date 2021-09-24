@@ -1,0 +1,49 @@
+[{
+    text:'Monitee Management',
+    expanded: true,
+    children:[{
+        	text: 'Add a new Phym',
+        	id:'add_phym',
+        	leaf:true
+         },{
+        	text: 'Add a new Platform Service',
+        	id:'add_platformservice',
+        	leaf:true
+         },{
+        	text: 'Add a new Application Server',
+        	id:'add_appserver',
+        	leaf:true
+        },{
+        	text: 'Configure Phyms',
+        	id:'configure_phyms',
+        	leaf:true
+        },{
+        	text: 'Configure App Servers',
+        	id:'configure_appserver',
+        	leaf:true
+        },{
+	        text:'View current Monitees',
+	        id:'view_monitees',
+	        leaf:true	   
+    }]
+},{
+    text:'Monitoring Model',
+    expanded: true,
+    children:[{
+        	text:'Model Definition',
+	        id:'model_definition',
+	        leaf:true       
+    },{
+        	text:'Model Diagram',
+	        id:'model_diagram',
+	        leaf:true       
+    }]
+},{
+    text:'System Settings',
+    expanded: true,
+    children:[{
+        	text: 'Alert Setting',
+        	id:'set_alerts',
+        	leaf:true        
+    }]
+}]

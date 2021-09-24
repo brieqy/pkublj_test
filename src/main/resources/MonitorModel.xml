@@ -1,0 +1,107 @@
+<MonitoringModels>
+	<ConditionEvaluators>
+		<Evaluator id="serverVersion">				
+				<ObjectName>Catalina:type=Server</ObjectName>
+				<AttributeName>serverInfo</AttributeName>
+				<AttributeType>java.lang.String</AttributeType>
+				<Operation>
+					<Method>substring</Method>
+					<Parameters>
+						<Parameter type="int">0</Parameter>
+						<Parameter type="int">15</Parameter>
+					</Parameters>					
+				</Operation>								
+		</Evaluator>
+		<Evaluator id="serverType">				
+				<ObjectName>Catalina:type=Server</ObjectName>
+				<AttributeName>serverInfo</AttributeName>
+				<AttributeType>java.lang.String</AttributeType>
+				<Operation>
+					<Method>substring</Method>
+					<Parameters>
+						<Parameter type="int">0</Parameter>
+						<Parameter type="int">13</Parameter>
+					</Parameters>					
+				</Operation>								
+		</Evaluator>		
+	</ConditionEvaluators>	
+	<MonitoringModel class="org.seforge.paas.monitor.domain.JmxAppInstance">		
+		<Attribute name="status" type="java.lang.String" inherited="true">			
+			<RuntimeModels>
+				<ConditionGroup evaluator="serverType">					
+					<RuntimeModel>					
+						<ConditionValue>Apache Tomcat</ConditionValue>
+						<AttributeName>Available</AttributeName>
+						<AttributeType>int</AttributeType>
+						<Mappings>
+							<Mapping>
+								<From>1</From>
+								<To>STARTED</To>
+							</Mapping>
+							<Mapping>
+								<From>0</From>
+								<To>STOPPED</To>
+							</Mapping>						
+						</Mappings>
+					</RuntimeModel>	
+				</ConditionGroup>							
+			</RuntimeModels>
+		</Attribute>
+		
+		<Attribute name="description"  type="java.lang.String" inherited="false">			
+			<RuntimeModels>
+				<ConditionGroup evaluator="serverType">					
+					<RuntimeModel>						
+						<ConditionValue>Apache Tomcat</ConditionValue>
+						<AttributeName>DisplayName</AttributeName>
+						<AttributeType>java.lang.String</AttributeType>
+					</RuntimeModel>					
+				</ConditionGroup>			
+			</RuntimeModels>
+		</Attribute>
+		<Attribute name="name"  type="java.lang.String" inherited="true">			
+			<RuntimeModels>
+				<ConditionGroup evaluator="serverType">					
+					<RuntimeModel>						
+						<ConditionValue>Apache Tomcat</ConditionValue>
+						<AttributeName>ContextName</AttributeName>
+						<AttributeType>java.lang.String</AttributeType>
+					</RuntimeModel>					
+				</ConditionGroup>							
+			</RuntimeModels>
+		</Attribute>
+		<Attribute name="location"  type="java.lang.String" inherited="true">			
+			<RuntimeModels>
+				<ConditionGroup evaluator="serverType">		
+					<RuntimeModel>
+						<ConditionValue>Apache Tomcat</ConditionValue>
+						<AttributeName>DocBase</AttributeName>
+						<AttributeType>java.lang.String</AttributeType>
+					</RuntimeModel>					
+				</ConditionGroup>				
+			</RuntimeModels>
+		</Attribute>
+		<Attribute name="errorCount"  type="int" inherited="false">			
+			<RuntimeModels>
+				<ConditionGroup evaluator="serverType">		
+					<RuntimeModel>
+						<ConditionValue>Apache Tomcat</ConditionValue>
+						<AttributeName>ErrorCount</AttributeName>
+						<AttributeType>int</AttributeType>
+					</RuntimeModel>					
+				</ConditionGroup>				
+			</RuntimeModels>
+		</Attribute>
+		<Attribute name="errorLogDir"  type="java.lang.String" inherited="false">			
+			<RuntimeModels>
+				<ConditionGroup evaluator="serverType">		
+					<RuntimeModel>
+						<ConditionValue>Apache Tomcat</ConditionValue>
+						<AttributeName>ErrorLogDir</AttributeName>
+						<AttributeType>java.lang.String</AttributeType>
+					</RuntimeModel>					
+				</ConditionGroup>				
+			</RuntimeModels>
+		</Attribute>							
+	</MonitoringModel>
+</MonitoringModels>

@@ -1,0 +1,237 @@
+project --topLevelPackage org.seforge.paas.monitor --projectName PaaSMonitor --java 6
+persistence setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY
+entity --class ~.domain.App --testAutomatically
+entity --class ~.domain.AppInstance --testAutomatically
+entity --class ~.domain.Phym --testAutomatically
+entity --class ~.domain.Vim --testAutomatically
+entity --class ~.domain.AppServer --testAutomatically
+field string --fieldName name --notNull --class ~.domain.App
+field set --fieldName appInstances --type ~.domain.AppInstance --mappedBy app --notNull false --cardinality ONE_TO_MANY
+field string --fieldName name --notNull --class ~.domain.AppInstance
+field boolean --fieldName isMonitee
+field reference --fieldName app --type ~.domain.App
+field reference --fieldName appServer --type ~.domain.AppServer
+field string --fieldName name --class ~.domain.Phym
+field string --fieldName ip --notNull --sizeMax 15 --unique
+field string --fieldName username --notNull
+field string --fieldName password --notNull
+field set --fieldName vims --type ~.domain.Vim --mappedBy phym --notNull false --cardinality ONE_TO_MANY
+field string --fieldName name --class ~.domain.Vim
+field string --fieldName ip --notNull --sizeMax 15 --unique
+field boolean --fieldName isMonitee
+field reference --fieldName phym --type ~.domain.Phym
+field set --fieldName appServers --type ~.domain.AppServer --mappedBy vim --notNull false --cardinality ONE_TO_MANY
+field string --fieldName name --class ~.domain.AppServer
+field string --fieldName ip --notNull --sizeMax 15 --unique
+field number --fieldName jmxPort --type java.lang.Integer --notNull
+field reference --fieldName vim --type ~.domain.Vim
+field set --fieldName appInstances --type ~.domain.AppInstance --mappedBy appServer --notNull false --cardinality ONE_TO_MANY
+finder add --finderName findVimsByPhym --class ~.domain.Vim
+finder add --finderName findVimsByIp 
+web mvc setup
+web mvc all --package ~.web
+logging setup --level INFO
+json all
+perform eclipse// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-08-25 10:49:34
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-08-25 10:50:15
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-08-25 13:41:06
+finder add --finderName findAppServersByIp --class ~.domain.AppServer
+field boolean --fieldName isMonitee
+field string --fieldName displayName --class ~.domain.AppInstance
+field string --fieldName docBase
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-08-26 16:00:31
+finder add --finderName findAppInstancesByAppServer --class ~.domain.AppInstance
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-08-29 12:42:58
+web mvc controller --class ~.web.MoniteeController --preferredMapping /monitees
+field boolean --fieldName isMonitee --class ~.domain.Phym
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-08-30 15:57:48
+field string --fieldName uuid --class ~.domain.Vim
+// [failed] field string --fieldName state
+field string --fieldName powerState
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-08-31 12:53:48
+field string --fieldName status --class ~.domain.AppServer
+field string --fieldName status --transient --class ~.domain.AppServer
+quit
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-08-31 18:06:34
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-01 19:40:21
+field string --fieldName status --class ~.domain.AppInstance
+quit
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-01 21:13:59
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-06 10:12:11
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-06 15:34:55
+enum type --class ~.reference.MoniteeState
+enum constant --name STARTED
+enum constant --name STOPPED
+// [failed] enum constant --name ON
+enum constant --name POWEREDON
+enum constant --name POWEREDOFF
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-20 13:42:43
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-21 21:39:26
+quit
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-21 21:43:37
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-21 21:43:40
+quit
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-21 21:46:23
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-21 21:46:27
+quit
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-21 22:35:02
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-25 14:40:32
+quit
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-25 18:34:29
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-28 11:07:33
+quit
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-28 11:09:37
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-11-14 11:13:18
+entity --class ~.domain.MBean --testAutomatically 
+field string --fieldName name --notNull
+entity --class ~.domain.MBeanAttribute --testAutomatically
+field string --fieldName name --notNull
+field string --fieldName type --notNull
+field reference --fieldName mbean --type ~.domain.MBean
+field set --fieldName attributes --type ~.domain.MBeanAttribute --mappedBy mbean --notNull false --cardinality ONE_TO_MANY --class ~.domain.MBean
+field string description --class ~.domain.MBeanAttribute
+quit
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-11-14 13:16:53
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-11-14 16:02:39
+entity --class ~.domain.MBeanServer
+field string --fieldName name --notNull
+field reference --fieldName mBeanServer --type ~.domain.MBeanServer --class ~.domain.MBean
+field set --fieldName mBeans --type ~.domain.MBean --mappedBy mBeanServer --notNull false --cardinality ONE_TO_MANY --class ~.domain.MBeanServer
+quit
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-11-14 20:54:52
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-11-21 12:29:15
+entity --class ~.domain.MBeanDomain
+field string --fieldName name --notNull
+entity --class ~.domain.MBeanType
+entity --class ~.domain.MBeanQueryParam
+entity --class ~.domain.MBeanAttribute
+field set --fieldName mBeanTypes --type ~.domain.MBeanType --mappedBy mBeanDomain --notNull false --cardinality ONE_TO_MANY
+field reference --fieldName mBeanDomain --type ~.domain.MBeanDomain --class ~.domain.MBeanType
+// Spring Roo 1.2.0.M1 [rev 1fa252f] log opened at 2011-11-21 22:43:50
+web mvc controller --class ~.web.JmxController --preferredMapping /jmx
+// [failed] quit
+exit
+// Spring Roo 1.2.0.M1 [rev 1fa252f] log closed at 2011-11-22 00:37:52
+// Spring Roo 1.2.0.M1 [rev 1fa252f] log opened at 2011-11-22 10:06:38
+finder list --class ~.domain.MBeanDomain
+finder add --finderName finderMBeanDomainsByNameLike
+finder add --finderName findMBeanDomainsByNameLike
+exit
+// Spring Roo 1.2.0.M1 [rev 1fa252f] log closed at 2011-11-22 12:53:14
+// Spring Roo 1.2.0.M1 [rev 1fa252f] log opened at 2011-11-28 13:31:31
+exit
+// Spring Roo 1.2.0.M1 [rev 1fa252f] log closed at 2011-11-28 16:35:58
+// Spring Roo 1.2.0.M1 [rev 1fa252f] log opened at 2011-12-05 18:35:28
+entity --class ~.domain.modelFile
+// Spring Roo 1.2.0.M1 [rev 1fa252f] log opened at 2011-12-12 13:10:58
+entity --class ~.domain.AppInstanceSnap
+field number --fieldName cpuPercent --type long
+field date --fieldName createTime --type java.util.Date --persistenceType JPA_TIMESTAMP
+field reference --fieldName appInstance --type ~.domain.AppInstance
+web mvc controller --class ~.web.MonitorController --preferredMapping /monitor
+quit
+// Spring Roo 1.2.0.M1 [rev 1fa252f] log closed at 2011-12-12 21:12:31
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log opened at 2011-12-19 14:02:38
+exit
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log closed at 2011-12-19 14:28:52
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log opened at 2011-12-19 14:29:04
+exit
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log closed at 2011-12-19 14:34:08
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log opened at 2011-12-19 14:34:12
+exit
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log closed at 2011-12-19 14:35:39
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log opened at 2011-12-19 14:35:44
+entity jpa --class ~.domain.AppServerSnap
+exit
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log closed at 2011-12-19 16:40:42
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log opened at 2011-12-19 18:05:21
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log opened at 2011-12-19 18:40:33
+exit
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log closed at 2011-12-19 18:50:08
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log opened at 2011-12-19 19:05:21
+exit
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log closed at 2011-12-19 19:07:24
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log opened at 2011-12-19 19:44:36
+// Spring Roo 1.2.0.RELEASE [rev 39eb957] log opened at 2012-02-20 13:14:46
+// Spring Roo UNKNOWN VERSION log opened at 2012-02-24 16:04:26
+// Spring Roo UNKNOWN VERSION log opened at 2012-02-24 16:05:53
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-02-24 17:13:36
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-02-27 17:09:52
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-02-27 17:11:13
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-02-27 17:11:21
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-02-27 17:14:00
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-02-27 17:14:07
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-02-27 17:15:44
+web mvc controller --class org.seforge.paas.monitor.web.ServletMonitorController --preferredmapping /servlet/monitor
+entity jpa --class ~.domain.MonitorConfig
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-03-05 12:58:49
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-03-26 11:45:09
+entity jpa --class ~.domain.AppServer --abstract
+entity jpa --class ~.domain.JmxAppServer --extends ~.domain.AppServer
+entity jpa --class ~.domain.Tomcat --extends ~.domain.JmxAppServer
+entity jpa --class ~.domain.Jetty --extends ~.domain.JmxAppServer
+entity jpa --class ~.domain.Apache --extends ~.domain.AppServer
+web mvc json all
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-03-26 15:53:11
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-03-26 20:33:32
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-03-26 21:12:20
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-03-26 22:30:46
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-22 09:36:59
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-22 18:50:39
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-27 15:51:12
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-28 23:14:09
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-28 23:15:33
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-28 23:15:40
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-28 23:16:44
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-28 23:17:01
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-28 23:20:57
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-28 23:21:06
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-28 23:25:47
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-28 23:25:58
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-28 23:26:05
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-28 23:29:27
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-28 23:31:03
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-28 23:31:08
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-28 23:32:02
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-28 23:32:08
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-28 23:33:09
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-28 23:33:17
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-28 23:36:34
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-28 23:36:39
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-05-29 00:05:25
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-05-31 12:52:15
+addon list
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-06-01 10:10:31
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-06-01 11:18:56
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-06-03 11:48:27
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-06-03 11:49:07
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-06-08 15:04:49
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-06-08 15:06:37
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-06-08 15:06:46
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-06-08 15:07:42
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-06-08 15:08:43
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-06-08 15:09:38
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-06-08 15:09:44
+quit
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log closed at 2012-06-08 17:30:26
+// Spring Roo 1.2.1.RELEASE [rev 6eae723] log opened at 2012-06-13 13:57:19
